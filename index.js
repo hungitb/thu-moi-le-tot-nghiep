@@ -40,12 +40,14 @@ submitBtn.addEventListener("click", () => {
     const containerElement = document.getElementById("container");
     if (!containerElement) throw new Error("Does not found container element");
 
+    const name = capitalize(nameInputElement.value.trim().split(" ").at(-1));
+    const role = roleSelectElement.value;
+
+    if (name.trim() == "") return;
+
     formWrapperElement.style.display = "none";
     containerElement.style.display = "flex";
     video.play();
-
-    const name = capitalize(nameInputElement.value.trim().split(" ").at(-1));
-    const role = roleSelectElement.value;
 
     function capitalize(str) {
         if (!str) return "";
