@@ -2,7 +2,7 @@
 #container {
     background-color: black;
     position: fixed;
-    inset: -100px;
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,5 +81,11 @@ button:hover {
 @media (max-width: 600px) {
     #subtitle {
         font-size: 2rem;
+    }
+}
+
+@media (max-width: 450px) {
+    #subtitle {
+        font-size: 1.5rem;
     }
 }
