@@ -4,18 +4,18 @@ if (!video) throw new Error("Does not found video element");
 const subtitleElement = document.getElementById("subtitle");
 if (!subtitleElement) throw new Error("Does not found subtitle element");
 
-const aspectRaito = 864/576;
+const aspectRaito = 864 / 576;
 
 function calculateVideoSize() {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
     let videoHeight = windowHeight;
-    let videoWidth = videoHeight/aspectRaito;
+    let videoWidth = videoHeight / aspectRaito;
 
-    if(videoWidth > windowWidth) {
+    if (videoWidth > windowWidth) {
         videoWidth = windowWidth;
-        videoHeight = videoWidth*aspectRaito;
+        videoHeight = videoWidth * aspectRaito;
     }
 
     video.width = videoWidth;
@@ -27,32 +27,23 @@ window.addEventListener("resize", () => calculateVideoSize());
 const submitBtn = document.getElementById("submit");
 if (!submitBtn) throw new Error("Does not found submit button");
 
-submitBtn.addEventListener("click", () => {
-    const nameInputElement = document.getElementById("name");
-    if (!nameInputElement) throw new Error("Does not found name input element");
+function capitalize(str) {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
-    const roleSelectElement = document.getElementById("role");
-    if (!roleSelectElement) throw new Error("Does not found role select element");
-
+function showVideo(name, role, auto) {
     const formWrapperElement = document.getElementById("form-wrapper");
     if (!formWrapperElement) throw new Error("Does not found form wrapper element");
 
     const containerElement = document.getElementById("container");
     if (!containerElement) throw new Error("Does not found container element");
 
-    const name = capitalize(nameInputElement.value.trim().split(" ").at(-1));
-    const role = roleSelectElement.value;
-
-    if (name.trim() == "") return;
+    name = capitalize((name || "").trim().split(" ").at(-1));
 
     formWrapperElement.style.display = "none";
     containerElement.style.display = "flex";
-    video.play();
-
-    function capitalize(str) {
-        if (!str) return "";
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+    if (!auto) video.play();
 
     let s1 = "";
     let s2 = "";
@@ -111,4 +102,28 @@ submitBtn.addEventListener("click", () => {
 
         isPlaying = !isPlaying;
     });
+}
+
+submitBtn.addEventListener("click", () => {
+    const nameInputElement = document.getElementById("name");
+    if (!nameInputElement) throw new Error("Does not found name input element");
+
+    const roleSelectElement = document.getElementById("role");
+    if (!roleSelectElement) throw new Error("Does not found role select element");
+
+    const name = nameInputElement.value;
+    const role = roleSelectElement.value;
+
+    if (name.trim() == "") return;
+
+    showVideo(name, role, false);
 });
+
+const params = new URLSearchParams(window.location.search);
+
+const nameParam = params.get("name");
+const roleParam = params.get("role");
+
+if (nameParam && nameParam.trim()) {
+    showVideo(nameParam, roleParam, true);
+}
