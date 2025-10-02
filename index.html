@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="form-wrapper">
+        <div id="form">
+            <label for="name">Tên bạn là gì:</label>
+            <input type="text" id="name" name="name" placeholder="Nhập tên...">
+            <br><br>
+
+            <label for="role">Đối với tôi, bạn là gì:</label>
+            <select id="role" name="role">
+                <option value="ban">Bạn</option>
+                <option value="anh">Anh</option>
+                <option value="chi">Chị</option>
+                <option value="em">Em</option>
+            </select>
+            <br><br>
+
+            <button id="submit">Xác nhận</button>
+        </div>
+    </div>
+
+    <div id="container" style="display: none;">
+        <div id="wrapper">
+            <video id="video">
+                <source src="./template.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+            
+            <div id="subtitle"></div>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
